@@ -1,5 +1,4 @@
-"""DjangoBaseDev URL Configuration
-
+"""baseindex URL Configuration
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
 Examples:
@@ -13,14 +12,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from baseindex import urls as base_urls
-from service import urls as service_urls
+from django.urls import path
+from service import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('service/', include(service_urls)),
-    path('', include(base_urls)),
-
+    path('', views.index, name='index'),
 ]
