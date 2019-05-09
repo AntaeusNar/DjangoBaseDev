@@ -8,9 +8,9 @@ from service.views import index
 class IndexViewTest(TestCase):
 
     def test_root_url_resolves_to_index_view(self):
-        found = resolve('service/')
+        found = resolve('/service/')
         self.assertEqual(found.func, index)
 
     def test_index_view_uses_index_template(self):
-        response = self.client.get('service/')
-        self.assertTemplateUsed(response, 'index.html')
+        response = self.client.get('/service/')
+        self.assertTemplateUsed(response, 'service/index.html')

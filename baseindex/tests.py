@@ -13,4 +13,4 @@ class IndexViewTest(TestCase):
 
     def test_index_view_uses_index_template(self):
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'index.html')
+        self.assertTemplateUsed(response, 'baseindex/index.html')
