@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello World. You're at the baseindex index.")
+    return render(request, 'baseindex/base.html')
