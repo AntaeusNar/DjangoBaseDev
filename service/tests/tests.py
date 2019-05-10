@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import resolve
 from service.views import dashboard
-from service.models import Event, Part
+from service.models import Event, Part, Container
 
 # Create your tests here.
 
@@ -51,3 +51,19 @@ class PartModelTest(TestCase):
 
         first_saved_part = saved_parts[0]
         self.assertEqual(first_saved_part.name, 'Flux Capacitor')
+
+
+class ContainerModelTest(TestCase):
+    
+    def test_creating_and_retrieving_containers(self):
+        
+        first_container = Container()
+        first_container.name = 'Tardis'
+        
+        first_container.save()
+        
+        saved_containers = Container.objects.all()
+        self.assertEqual(saved_containers.count(), 1)
+        
+        first_saved_container = saved_containers[0]
+        self.assertEqual(first_saved_container.name, 'Tardis')
