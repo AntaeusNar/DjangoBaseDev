@@ -7,7 +7,7 @@ class Container(models.Model):
     # a location, truck, door, system, group, warehouse etc for relating one set of parts to another
     # or sub-locations nesting forever
     name = models.CharField(max_length=64)
-    part = models.ManyToManyField('Part', through='PartQuantity', related_name='events')
+    part = models.ManyToManyField('Part', through='PartQuantity', related_name='containers')
     subcontainer = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
