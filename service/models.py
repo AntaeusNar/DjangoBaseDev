@@ -13,7 +13,8 @@ class Part(models.Model):
 
 class PartQuantity(models.Model):
     amount = models.IntegerField()
-    part = models.ForeignKey('Part', related_name='part_quantity')
+    part = models.ForeignKey('Part', related_name='part_quantity', on_delete=models.SET_NULL, null=True, blank=True)
+    event = models.ForeignKey('Event', related_name='part_quantity', on_delete=models.SET_NULL, null=True)
 
 
 class Event(models.Model):
