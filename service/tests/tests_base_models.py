@@ -1,5 +1,5 @@
 from django.test import TestCase
-from service.models import Event, Part, Container
+from service.models import Event, Part, Container, PartQuantity
 import datetime
 
 # Create your tests here.
@@ -78,17 +78,7 @@ class ContainerModelTest(TestCase):
         self.assertEqual(second_saved_container.subcontainer, first_container)
         self.assertEqual(second_saved_container.subcontainer, first_saved_container)
 
-    def test_adding_parts_to_new_container(self):
-        first_part = Part()
-        first_part.name = "Trebuchet"
-        first_part.save()
-
-        second_part = Part()
-        second_part.name = "Horcrux"
-        second_part.save()
-
-        saved_parts = Part.objects.all()
-        self.assertEqual(saved_parts.count(), 2)
+    def test_containers_in_containers(self):
 
         first_container = Container()
         first_container.name = 'Tardis'
@@ -101,3 +91,41 @@ class ContainerModelTest(TestCase):
 
         saved_containers = Container.objects.all()
         self.assertEqual(saved_containers.count(), 2)
+
+        second_saved_container = saved_containers[1]
+        self.assertEqual(second_saved_container.subcontainer, first_container)
+
+    def test_adding_parts_to_containers(self):
+
+        first_part = Part()
+        first_part.name = "Trebuchet"
+        first_part.save()
+
+        second_part = Part()
+        second_part.name = "Horcrux"
+        second_part.save()
+
+        saved_parts = Part.objects.all()
+        self.assertEqual(saved_parts.count(), 2)
+
+        first_container = Container()
+        first_container.name = "Bag of Holding"
+        first_container.save()
+
+        saved_containers = Container.objects.all()
+        self.assertEqual(saved_containers.count(), 1)
+
+        group_of_parts = PartQuantity.objects.create(part=first_part, container=first_container, amount=7)
+        group_of_parts_2 = PartQuantity.objects.create(part=second_part, container=first_container, amount=24)
+
+        first_saved_container = saved_containers[0]
+        fsc_part_quantities = first_saved_container.part_quantity.all()
+        self.assertEqual(fsc_part_quantities.count(), 2)
+
+        first_fsc_part_quantity = fsc_part_quantities[0]
+        self.assertEqual(first_fsc_part_quantity.part.name, 'Trebuchet')
+        self.assertEqual(first_fsc_part_quantity.amount, 7)
+
+        second_fsc_part_quantity = fsc_part_quantities[1]
+        self.assertEqual(second_fsc_part_quantity.part.name, 'Horcrux')
+        self.assertEqual(second_fsc_part_quantity.amount, 24)
