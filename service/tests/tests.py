@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import resolve
 from service.views import dashboard
 from service.models import Event, Part, Container
+import datetime
 
 # Create your tests here.
 
@@ -21,11 +22,19 @@ class EventModelTest(TestCase):
 
     def test_saving_and_retrieving_events(self):
 
+        now = datetime.datetime.now()
+        today = now.strftime("%Y-%m-%d")
+
+        first_container = Container()
+        first_container.name = 'Tardis'
+        first_container.save()
+
         first_event = Event()
         first_event.title = "The first event"
         first_event.description = "This is a test of the first event description"
-        first_event.category = "Install"
-
+        first_event.action = "Install"
+        first_event.container = first_container
+        first_event.event_date = "05/10/2019"
         first_event.save()
 
         saved_events = Event.objects.all()
@@ -34,7 +43,10 @@ class EventModelTest(TestCase):
         first_saved_event = saved_events[0]
         self.assertEqual(first_saved_event.title, 'The first event')
         self.assertEqual(first_saved_event.description, "This is a test of the first event description")
-        self.assertEqual(first_saved_event.category, 'Install')
+        self.assertEqual(first_saved_event.action, 'Install')
+        self.assertEqual(first_saved_event.container, first_container)
+        self.assertEqual(first_saved_event.event_date, "2019-05-10")
+        self.assertEqual(first_saved_event.rec_date, today)
 
 
 class PartModelTest(TestCase):
