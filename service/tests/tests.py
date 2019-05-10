@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import resolve
 from service.views import dashboard
-from service.models import Event
+from service.models import Event, Part
 
 # Create your tests here.
 
@@ -19,18 +19,32 @@ class IndexViewTest(TestCase):
 
 class EventModelTest(TestCase):
 
+    def test_creating_and_retrieving_parts(self):
+
+        first_part = Part()
+        first_part.name = "Flux Capacitor"
+
+        first_part.save()
+
+        saved_parts = Part.objects.all()
+        self.assertEqual(saved_parts.count(), 1)
+
+        first_saved_part = saved_parts[0]
+        self.assertEqual(first_saved_part.name, 'Flux Capacitor')
+
     def test_saving_and_retrieving_events(self):
 
         first_event = Event()
-        first_event.text = "The first event"
-        first_event.type = "installation"
-        first_event.date = "Today"
+        first_event.title = "The first event"
+        first_event.description = "This is a test of the first event description"
+        first_event.category = "Install"
+
         first_event.save()
 
         saved_events = Event.objects.all()
         self.assertEqual(saved_events.count(), 1)
 
         first_saved_event = saved_events[0]
-        self.assertEqual(first_saved_event.text, 'The first event')
-        self.assertEqual(first_saved_event.type, 'installation')
-        self.assertEqual(first_saved_event.date, 'Today')
+        self.assertEqual(first_saved_event.title, 'The first event')
+        self.assertEqual(first_saved_event.description, "This is a test of the first event description")
+        self.assertEqual(first_saved_event.category, 'Install')
