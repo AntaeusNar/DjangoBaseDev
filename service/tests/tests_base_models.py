@@ -11,7 +11,10 @@ class EventModelTest(TestCase):
 
     def test_saving_and_retrieving_events(self):
 
-        apartments_parts_group = 'these things at The Apartments'
+        apartments_parts_group = Container()
+        apartments_parts_group.name = "These parts at the Apartments"
+        apartments_parts_group.save()
+
         yesterday = 'Oct the 10th at 11 in the morning'
         today = 'Dec. 7th 546'
 
