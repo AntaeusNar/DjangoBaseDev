@@ -59,11 +59,20 @@ class ContainerModelTest(TestCase):
         
         first_container = Container()
         first_container.name = 'Tardis'
-        
         first_container.save()
+
+        second_container = Container()
+        second_container.name = "England"
+        second_container.subcontainer = first_container
+        second_container.save()
         
         saved_containers = Container.objects.all()
-        self.assertEqual(saved_containers.count(), 1)
+        self.assertEqual(saved_containers.count(), 2)
         
         first_saved_container = saved_containers[0]
         self.assertEqual(first_saved_container.name, 'Tardis')
+
+        second_saved_container = saved_containers[1]
+        self.assertEqual(second_saved_container.name, 'England')
+        self.assertEqual(second_saved_container.subcontainer, first_container)
+        self.assertEqual(second_saved_container.subcontainer, first_saved_container)
