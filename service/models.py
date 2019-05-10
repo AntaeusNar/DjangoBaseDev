@@ -31,6 +31,7 @@ class Event(models.Model):
     )
     category = models.CharField(max_length=8, choices=CATEGORY_CHOICES)
     parts = models.ManyToManyField('Part', through='PartQuantity', related_name='events')
+    events = models.ManyToManyField('self')
 
     def __str__(self):
         return self.title
