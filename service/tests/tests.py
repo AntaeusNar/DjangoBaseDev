@@ -19,19 +19,6 @@ class IndexViewTest(TestCase):
 
 class EventModelTest(TestCase):
 
-    def test_creating_and_retrieving_parts(self):
-
-        first_part = Part()
-        first_part.name = "Flux Capacitor"
-
-        first_part.save()
-
-        saved_parts = Part.objects.all()
-        self.assertEqual(saved_parts.count(), 1)
-
-        first_saved_part = saved_parts[0]
-        self.assertEqual(first_saved_part.name, 'Flux Capacitor')
-
     def test_saving_and_retrieving_events(self):
 
         first_event = Event()
@@ -48,3 +35,19 @@ class EventModelTest(TestCase):
         self.assertEqual(first_saved_event.title, 'The first event')
         self.assertEqual(first_saved_event.description, "This is a test of the first event description")
         self.assertEqual(first_saved_event.category, 'Install')
+
+
+class PartModelTest(TestCase):
+
+    def test_creating_and_retrieving_parts(self):
+
+        first_part = Part()
+        first_part.name = "Flux Capacitor"
+
+        first_part.save()
+
+        saved_parts = Part.objects.all()
+        self.assertEqual(saved_parts.count(), 1)
+
+        first_saved_part = saved_parts[0]
+        self.assertEqual(first_saved_part.name, 'Flux Capacitor')
