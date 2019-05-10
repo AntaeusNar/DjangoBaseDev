@@ -34,18 +34,15 @@ class Event(models.Model):
 
     description = models.TextField()
 
-    CATEGORY_CHOICES = (
+    ACTION_CHOICES = (
         ('Add', 'Installed/Delivered'),
         ('Removed', 'Took out/Picked Up'),
         ('Repair', 'Repaired'),
         ('Insp.', 'Inspected'),
     )
-    action = models.CharField(max_length=8, choices=CATEGORY_CHOICES)
+    action = models.CharField(max_length=8, choices=ACTION_CHOICES)
     container = models.ForeignKey('Container', on_delete=models.CASCADE)
-    event_date = models.DateField
+    event_date = models.DateField()
     rec_date = models.DateTimeField(auto_now_add=True)
     last_change_date = models.DateTimeField(auto_now=True)
     events = models.ManyToManyField('self')
-
-    def __str__(self):
-        return self.title

@@ -15,15 +15,15 @@ class EventModelTest(TestCase):
         apartments_parts_group.name = "These parts at the Apartments"
         apartments_parts_group.save()
 
-        yesterday = 'Oct the 10th at 11 in the morning'
-        today = 'Dec. 7th 546'
+        this_today = datetime.date.today().strftime('%Y-%m-%d')
+        yesterday = datetime.date.today() + datetime.timedelta(-1)
+        # yesterday = yesterday.strftime('%Y-%m-%d')
 
         first_event = Event()
         first_event.description = "Felix fixed 3 windows and one door over at the apartments yesterday"
         first_event.action = "Repaired"
         first_event.container = apartments_parts_group
         first_event.event_date = yesterday
-        first_event.rec_date = today
         first_event.save()
 
         saved_events = Event.objects.all()
@@ -37,7 +37,7 @@ class EventModelTest(TestCase):
         self.assertEqual(first_saved_event.action, "Repaired")
         self.assertEqual(first_saved_event.container, apartments_parts_group)
         self.assertEqual(first_saved_event.event_date, yesterday)
-        self.assertEqual(first_saved_event.rec_date, today)
+        self.assertEqual(first_saved_event.rec_date.strftime('%Y-%m-%d'), this_today)
 
 
 class PartModelTest(TestCase):
