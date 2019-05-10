@@ -4,7 +4,13 @@ from django.db import models
 
 
 class Container(models.Model):
-    pass
+    # a location, truck, door, system, group, warehouse etc for relating one set of parts to another
+    # or sub-locations nesting forever
+    name = models.CharField(max_length=64)
+    subcontainer = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Part(models.Model):
