@@ -3,6 +3,19 @@ from django.db import models
 # Create your models here.
 
 
+class Part(models.Model):
+
+    name = models.CharField(max_length=16)
+
+    def __str__(self):
+        return self.name
+
+
+class PartQuantity(models.Model):
+    amount = models.IntegerField()
+    part = models.ForeignKey('Part', related_name='part_quantity')
+
+
 class Event(models.Model):
     # this is the core of the service system, each event is the what, when, where and how of the system
     title = models.CharField(max_length=64)
