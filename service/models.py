@@ -28,20 +28,22 @@ class PartQuantity(models.Model):
 
 
 class Event(models.Model):
-    # this is the core of the service system, each event is the what, when, where and how of the system
-    title = models.CharField(max_length=64)
+    # this is the core of the service system
+    # A description of [an action] performed on [Group of Parts at a location/place] at a [time]
+
     description = models.TextField()
 
     CATEGORY_CHOICES = (
-        ("Install", 'Initial Installation'),
-        ("Service", 'Service Work'),
-        ("Warranty", 'Warranty Service'),
-        ("Insp.", 'Inspection'),
-        ('Audit', 'Audit'),
-        ('Est.', 'Estimate/Quote/Proposal')
+        ('Add', 'Installed/Delivered'),
+        ('Removed', 'Took out/Picked Up'),
+        ('Repair', 'Repaired'),
+        ('Insp.', 'Inspected'),
     )
-    category = models.CharField(max_length=8, choices=CATEGORY_CHOICES)
-    parts = models.ManyToManyField('Part', through='PartQuantity', related_name='events')
+    action = models.CharField(max_length=8, choices=CATEGORY_CHOICES)
+    container = models.ForeignKey('Container', on_delete=models.CASCADE)
+    event_date = models.DateField
+    rec_date = models.DateTimeField(auto_now_add=True)
+    last_change_date = models.DateTimeField(auto_now=True)
     events = models.ManyToManyField('self')
 
     def __str__(self):

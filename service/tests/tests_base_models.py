@@ -7,20 +7,18 @@ import datetime
 
 class EventModelTest(TestCase):
     # Current rendition of an event:
-    # A description of [an action] performed on [Group of Parts] at a [location/place] at a [time]
+    # A description of [an action] performed on [Group of Parts at a location/place] at a [time]
 
     def test_saving_and_retrieving_events(self):
 
-        parts_group = "these things"
-        apartments = 'The Apartments'
+        apartments_parts_group = 'these things at The Apartments'
         yesterday = 'Oct the 10th at 11 in the morning'
         today = 'Dec. 7th 546'
 
         first_event = Event()
         first_event.description = "Felix fixed 3 windows and one door over at the apartments yesterday"
-        first_event.action = "Installed"
-        first_event.parts_group = parts_group
-        first_event.container = apartments
+        first_event.action = "Repaired"
+        first_event.container = apartments_parts_group
         first_event.event_date = yesterday
         first_event.rec_date = today
         first_event.save()
@@ -33,9 +31,8 @@ class EventModelTest(TestCase):
             first_saved_event.description,
             "Felix fixed 3 windows and one door over at the apartments yesterday"
         )
-        self.assertEqual(first_saved_event.action, "Installed")
-        self.assertEqual(first_saved_event.parts_group, parts_group)
-        self.assertEqual(first_saved_event.container, apartments)
+        self.assertEqual(first_saved_event.action, "Repaired")
+        self.assertEqual(first_saved_event.container, apartments_parts_group)
         self.assertEqual(first_saved_event.event_date, yesterday)
         self.assertEqual(first_saved_event.rec_date, today)
 
