@@ -41,6 +41,15 @@ class Event(models.Model):
         ('Insp.', 'Inspected'),
     )
     action = models.CharField(max_length=8, choices=ACTION_CHOICES)
+
+    STATUS_CHOICES = (
+        ('Active', 'Active'),
+        ('On Hold', 'On Hold'),
+        ('Initial', 'Initial'),
+        ('In Work', 'In Work'),
+        ('Completed', 'Completed'),
+    )
+    status = models.CharField(max_length=16, choices=STATUS_CHOICES, default='Initial')
     container = models.ForeignKey('Container', on_delete=models.CASCADE)
     event_date = models.DateField()
     rec_date = models.DateTimeField(auto_now_add=True)
