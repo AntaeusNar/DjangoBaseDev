@@ -1,5 +1,5 @@
 from django.test import TestCase
-from service.models import Event, Part, Container, PartQuantity
+from service.models import Event, Part, Container, PartQuantity, Address
 import datetime
 
 # Create your tests here.
@@ -38,6 +38,38 @@ class EventModelTest(TestCase):
         self.assertEqual(first_saved_event.container, apartments_parts_group)
         self.assertEqual(first_saved_event.event_date, yesterday)
         self.assertEqual(first_saved_event.rec_date.strftime('%Y-%m-%d'), this_today)
+
+
+class AddressModelTest(TestCase):
+
+    def test_creating_and_retrieving_addresses(self):
+        first_address = Address()
+        first_address.house_number = '3509'
+        first_address.road = 'Pelican Brief Ln'
+        first_address.unit = 'N/A'
+        first_address.level = 'N/A'
+        first_address.staircase = 'N/A'
+        first_address.entrance = 'N/A'
+        first_address.po_box = 'N/A'
+        first_address.postcode = '89084'
+        first_address.suburb = 'The Fields'
+        first_address.city_district = 'N/A'
+        first_address.city = "North Las Vegas"
+        first_address.county = 'Clark County'
+        first_address.state = 'Nevada'
+        first_address.country = 'USA'
+
+        first_address.save()
+
+        saved_addresses = Address.objects.all()
+        self.assertEqual(saved_addresses.count(), 1)
+
+        first_saved_address = saved_addresses[0]
+        self.assertEqual(first_saved_address.house_number, '3509')
+        self.assertEqual(first_saved_address.road, 'Pelican Brief Ln')
+        self.assertEqual(first_saved_address.postcode, '89084')
+        self.assertEqual(first_saved_address.city, 'North Las Vegas')
+        self.assertEqual(first_saved_address.state, 'Nevada')
 
 
 class PartModelTest(TestCase):
