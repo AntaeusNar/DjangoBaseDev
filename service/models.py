@@ -3,6 +3,23 @@ from django.db import models
 # Create your models here.
 
 
+class Address(models.Model):
+    house_number = models.CharField(max_length=32)
+    road = models.CharField(max_length=32)
+    unit = models.CharField(max_length=32, null=True, blank=True)
+    level = models.CharField(max_length=32, null=True, blank=True)
+    staircase = models.CharField(max_length=32, null=True, blank=True)
+    entrance = models.CharField(max_length=32, null=True, blank=True)
+    po_box = models.CharField(max_length=32, null=True, blank=True)
+    postcode = models.CharField(max_length=32)
+    suburb = models.CharField(max_length=32, null=True, blank=True)
+    city_district = models.CharField(max_length=32, null=True, blank=True)
+    city = models.CharField(max_length=32)
+    county = models.CharField(max_length=32, null=True, blank=True)
+    state = models.CharField(max_length=32)
+    country = models.CharField(max_length=32)
+
+
 class Container(models.Model):
     # a location, truck, door, system, group, warehouse etc for relating one set of parts to another
     # or sub-locations nesting forever
