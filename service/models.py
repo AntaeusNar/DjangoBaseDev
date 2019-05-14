@@ -19,6 +19,10 @@ class Address(models.Model):
     state = models.CharField(max_length=32)
     country = models.CharField(max_length=32)
 
+    def __str__(self):
+        full_address = self.house_number + ' ' + self.road + ', ' + self.city + ', ' + self.state + ' ' + self.postcode
+        return str(full_address)
+
 
 class Container(models.Model):
     # a location, truck, door, system, group, warehouse etc for relating one set of parts to another
