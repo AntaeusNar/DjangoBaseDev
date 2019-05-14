@@ -43,6 +43,7 @@ class EventModelTest(TestCase):
 class AddressModelTest(TestCase):
 
     def test_creating_and_retrieving_addresses(self):
+
         first_address = Address()
         first_address.house_number = '3509'
         first_address.road = 'Pelican Brief Ln'
@@ -56,7 +57,7 @@ class AddressModelTest(TestCase):
         first_address.city_district = 'N/A'
         first_address.city = "North Las Vegas"
         first_address.county = 'Clark County'
-        first_address.state = 'Nevada'
+        first_address.state = 'NV'
         first_address.country = 'USA'
 
         first_address.save()
@@ -69,7 +70,13 @@ class AddressModelTest(TestCase):
         self.assertEqual(first_saved_address.road, 'Pelican Brief Ln')
         self.assertEqual(first_saved_address.postcode, '89084')
         self.assertEqual(first_saved_address.city, 'North Las Vegas')
-        self.assertEqual(first_saved_address.state, 'Nevada')
+        self.assertEqual(first_saved_address.state, 'NV')
+
+        self.assertEqual(str(first_saved_address), '3509 Pelican Brief Ln, North Las Vegas, NV 89084')
+
+    def test_modified_save_function(self):
+
+        first_address = Address()
 
 
 class PartModelTest(TestCase):
