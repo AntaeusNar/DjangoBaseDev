@@ -20,8 +20,9 @@ class Address(models.Model):
     country = models.CharField(max_length=32)
 
     def __str__(self):
-        full_address = self.house_number + ' ' + self.road + ', ' + self.city + ', ' + self.state + ' ' + self.postcode
-        return str(full_address)
+        # todo: allow for different address formats.
+        full_address = '%s %s, %s, %s %s' % (self.house_number, self.road, self.city, self.state, self.postcode)
+        return full_address
 
 
 class Container(models.Model):
