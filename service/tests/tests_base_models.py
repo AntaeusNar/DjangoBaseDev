@@ -84,7 +84,32 @@ class AddressModelTest(TestCase):
         self.assertEqual(str(first_saved_address), '3509 Pelican Brief Ln, North Las Vegas, NV 89084')
 
     def test_modified_save_function_pobox_vs_house(self):
-        self.fail('Finish Test')
+
+        first_address = Address()
+        first_address.house_number = '3509'
+        first_address.road = 'pelican brief ln'
+        first_address.postcode = '89084'
+        first_address.city = "north las vegas"
+        first_address.state = 'nevada'
+
+        first_address.save()
+
+        second_address = Address()
+        second_address.po_box = '17'
+        second_address.city = 'henderson'
+        second_address.state = 'nv'
+        second_address.postcode = '89119'
+
+        second_address.save()
+
+        saved_addresses = Address.objects.all()
+        self.assertEqual(saved_addresses.count(), 2)
+
+        first_saved_address = saved_addresses[0]
+        second_saved_address = saved_addresses[1]
+
+        self.assertEqual(str(first_saved_address), '3509 Pelican Brief Ln, North Las Vegas, NV 89084')
+        self.assertEqual(str(second_saved_address), 'PO Box 17, Henderson, NV 89119')
 
     def test_modified_save_function_super_save(self):
 
