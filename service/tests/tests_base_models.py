@@ -123,14 +123,14 @@ class ContainerModelTest(TestCase):
 
         first_container = Container()
         first_container.name = 'Tardis'
-        first_container.address = first_address
         first_container.save()
+        first_container.address.add(first_address)
 
         saved_containers = Container.objects.all()
         self.assertEqual(saved_containers.count(), 1)
 
         first_saved_container = saved_containers[0]
-        self.assertEqual(first_saved_container.address.city, 'North Las Vegas')
+        self.assertEqual(first_saved_container.address.all()[0].city, 'North Las Vegas')
 
     def test_containers_in_containers(self):
 
