@@ -87,6 +87,7 @@ class AddressModelTest(TestCase):
         self.fail('Finish Test')
 
     def test_modified_save_function_super_save(self):
+
         first_address = Address()
         first_address.house_number = '3509'
         first_address.road = 'Pelican Brief Ln'
