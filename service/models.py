@@ -20,8 +20,14 @@ class Address(models.Model):
     country = models.CharField(max_length=32)
 
     def __str__(self):
-        # todo: allow for different address formats.
-        full_address = '%s %s, %s, %s %s' % (self.house_number, self.road, self.city, self.state, self.postcode)
+        if self.unit is not None:
+            full_address = '%s %s, %s, %s, %s %s' % (
+                self.house_number, self.road, self.unit, self.city, self.state, self.postcode
+            )
+        else:
+            full_address = '%s %s, %s, %s %s' % (
+                self.house_number, self.road, self.city, self.state, self.postcode
+            )
         return full_address
 
 
