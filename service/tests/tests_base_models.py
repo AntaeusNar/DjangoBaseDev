@@ -110,6 +110,28 @@ class ContainerModelTest(TestCase):
         self.assertEqual(second_saved_container.subcontainer, first_container)
         self.assertEqual(second_saved_container.subcontainer, first_saved_container)
 
+    def test_creating_containers_with_addresses(self):
+
+        first_address = Address()
+        first_address.house_number = '3509'
+        first_address.road = 'Pelican Brief Ln'
+        first_address.postcode = '89084'
+        first_address.city = 'North Las Vegas'
+        first_address.state = 'Nevada'
+        first_address.country = 'USA'
+        first_address.save()
+
+        first_container = Container()
+        first_container.name = 'Tardis'
+        first_container.address = first_address
+        first_container.save()
+
+        saved_containers = Container.objects.all()
+        self.assertEqual(saved_containers.count(), 1)
+
+        first_saved_container = saved_containers[0]
+        self.assertEqual(first_saved_container.address.city, 'North Las Vegas')
+
     def test_containers_in_containers(self):
 
         first_container = Container()
