@@ -102,15 +102,19 @@ class AddressModelTest(TestCase):
 
         first_saved_address = saved_addresses[0]
         first_saved_address.house_number = '3520'
-        first_saved_address.save(update_field=['house_number'])
+        first_saved_address.save(update_fields=['house_number'])
 
         self.assertEqual(str(first_saved_address), '3520 Pelican Brief Ln, North Las Vegas, NV 89084')
 
-        second_address = first_address
+        second_address = Address()
+        second_address.po_box = '17'
+        second_address.city = 'henderson'
+        second_address.state = 'nv'
+        second_address.postcode = '89119'
         second_address.county = 'Clark'
         second_address.save()
 
-        saved_addresses = Address.object.all()
+        saved_addresses = Address.objects.all()
         self.assertEqual(saved_addresses.count(), 2)
 
         second_saved_address = saved_addresses[1]
