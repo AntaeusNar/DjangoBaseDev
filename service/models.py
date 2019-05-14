@@ -19,6 +19,13 @@ class Address(models.Model):
     state = models.CharField(max_length=32)
     country = models.CharField(max_length=32)
 
+    def save(self, *args, **kwargs):
+        for field_name in ['house_number', 'road', 'unit', 'suburb', 'city_district', 'city', 'county']:
+            val = getattr(self, field_name, False)
+            if val:
+                setattr(self, field_name, val.title())
+        super().save(*args, **kwargs)
+
     def __str__(self):
         if self.unit is not None:
             full_address = '%s %s, %s, %s, %s %s' % (
