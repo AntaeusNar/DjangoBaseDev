@@ -47,18 +47,9 @@ class AddressModelTest(TestCase):
         first_address = Address()
         first_address.house_number = '3509'
         first_address.road = 'Pelican Brief Ln'
-        first_address.unit = 'N/A'
-        first_address.level = 'N/A'
-        first_address.staircase = 'N/A'
-        first_address.entrance = 'N/A'
-        first_address.po_box = 'N/A'
         first_address.postcode = '89084'
-        first_address.suburb = 'The Fields'
-        first_address.city_district = 'N/A'
         first_address.city = "North Las Vegas"
-        first_address.county = 'Clark County'
         first_address.state = 'NV'
-        first_address.country = 'USA'
 
         first_address.save()
 
