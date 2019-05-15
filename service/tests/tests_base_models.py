@@ -54,6 +54,7 @@ class AddressModelTest(TestCase):
         first_address.state = 'NV'
 
         first_address.save()
+        self.assertTrue(isinstance(first_address, Address))
 
         saved_addresses = Address.objects.all()
         self.assertEqual(saved_addresses.count(), 1)
@@ -112,6 +113,22 @@ class AddressModelTest(TestCase):
 
         self.assertEqual(str(first_saved_address), '3509 Pelican Brief Ln, North Las Vegas, NV 89084')
         self.assertEqual(str(second_saved_address), 'PO Box 17, Henderson, NV 89119')
+
+    def test_save_unit_address(self):
+
+        first_address = Address()
+        first_address.house_number = '3509'
+        first_address.road = 'pelican brief ln'
+        first_address.unit = '2B'
+        first_address.postcode = '89084'
+        first_address.city = "north las vegas"
+        first_address.state = 'nevada'
+
+        first_address.save()
+
+        saved_addresses = Address.objects.all()
+        first_saved_address = saved_addresses[0]
+        self.assertEqual(str(first_saved_address), '3509 Pelican Brief Ln, 2B, North Las Vegas, NV 89084')
 
     def test_modified_save_function_super_save(self):
 
