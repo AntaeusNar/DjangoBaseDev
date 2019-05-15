@@ -22,6 +22,7 @@ class EventModelTest(TestCase):
         first_event = Event()
         first_event.description = "Felix fixed 3 windows and one door over at the apartments yesterday"
         first_event.action = "Repaired"
+        first_event.status = "Active"
         first_event.container = apartments_parts_group
         first_event.event_date = yesterday
         first_event.save()
@@ -35,6 +36,7 @@ class EventModelTest(TestCase):
             "Felix fixed 3 windows and one door over at the apartments yesterday"
         )
         self.assertEqual(first_saved_event.action, "Repaired")
+        self.assertEqual(first_saved_event.status, 'Active')
         self.assertEqual(first_saved_event.container, apartments_parts_group)
         self.assertEqual(first_saved_event.event_date, yesterday)
         self.assertEqual(first_saved_event.rec_date.strftime('%Y-%m-%d'), this_today)

@@ -16,7 +16,7 @@ class Address(models.Model):
     city_district = models.CharField(max_length=32, null=True, blank=True)
     city = models.CharField(max_length=32)
     county = models.CharField(max_length=32, null=True, blank=True)
-    state = models.CharField(max_length=32)
+    state = models.CharField(max_length=2)
     country = models.CharField(max_length=32)
 
     def save(self, *args, **kwargs):
