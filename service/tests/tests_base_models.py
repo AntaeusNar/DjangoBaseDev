@@ -178,6 +178,7 @@ class PartModelTest(TestCase):
 
         first_saved_part = saved_parts[0]
         self.assertEqual(first_saved_part.name, 'Flux Capacitor')
+        self.assertEqual(first_saved_part.name, str(first_saved_part))
 
 
 class ContainerModelTest(TestCase):
@@ -202,6 +203,7 @@ class ContainerModelTest(TestCase):
         self.assertEqual(second_saved_container.name, 'England')
         self.assertEqual(second_saved_container.subcontainer, first_container)
         self.assertEqual(second_saved_container.subcontainer, first_saved_container)
+        self.assertEqual(second_saved_container.name, str(second_saved_container))
 
     def test_creating_containers_with_addresses(self):
 
