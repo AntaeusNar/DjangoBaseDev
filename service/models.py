@@ -20,16 +20,74 @@ class Address(models.Model):
     country = models.CharField(max_length=32)
 
     def save(self, *args, **kwargs):
-        for field_name in ['house_number', 'road', 'unit', 'suburb', 'city_district', 'city', 'county']:
+        us_state_abbrev = {
+            'Alabama': 'AL',
+            'Alaska': 'AK',
+            'Arizona': 'AZ',
+            'Arkansas': 'AR',
+            'California': 'CA',
+            'Colorado': 'CO',
+            'Connecticut': 'CT',
+            'Delaware': 'DE',
+            'Florida': 'FL',
+            'Georgia': 'GA',
+            'Hawaii': 'HI',
+            'Idaho': 'ID',
+            'Illinois': 'IL',
+            'Indiana': 'IN',
+            'Iowa': 'IA',
+            'Kansas': 'KS',
+            'Kentucky': 'KY',
+            'Louisiana': 'LA',
+            'Maine': 'ME',
+            'Maryland': 'MD',
+            'Massachusetts': 'MA',
+            'Michigan': 'MI',
+            'Minnesota': 'MN',
+            'Mississippi': 'MS',
+            'Missouri': 'MO',
+            'Montana': 'MT',
+            'Nebraska': 'NE',
+            'Nevada': 'NV',
+            'New Hampshire': 'NH',
+            'New Jersey': 'NJ',
+            'New Mexico': 'NM',
+            'New York': 'NY',
+            'North Carolina': 'NC',
+            'North Dakota': 'ND',
+            'Ohio': 'OH',
+            'Oklahoma': 'OK',
+            'Oregon': 'OR',
+            'Pennsylvania': 'PA',
+            'Rhode Island': 'RI',
+            'South Carolina': 'SC',
+            'South Dakota': 'SD',
+            'Tennessee': 'TN',
+            'Texas': 'TX',
+            'Utah': 'UT',
+            'Vermont': 'VT',
+            'Virginia': 'VA',
+            'Washington': 'WA',
+            'West Virginia': 'WV',
+            'Wisconsin': 'WI',
+            'Wyoming': 'WY',
+        }
+        for field_name in ['house_number', 'road', 'unit', 'suburb', 'city_district', 'state', 'city', 'county']:
             val = getattr(self, field_name, False)
-            if val:
+            if val and field_name != 'state':
                 setattr(self, field_name, val.title())
+            if val and field_name == 'state': # and val.title in us_state_abbrev:
+                setattr(self, field_name, us_state_abbrev.get(val.title, "NV"))
         super().save(*args, **kwargs)
 
     def __str__(self):
         if self.unit is not None:
             full_address = '%s %s, %s, %s, %s %s' % (
                 self.house_number, self.road, self.unit, self.city, self.state, self.postcode
+            )
+        elif self.po_box is not None:
+            full_address = 'PO Box %s, %s, %s %s' % (
+                self.po_box, self.city, self.state, self.postcode
             )
         else:
             full_address = '%s %s, %s, %s %s' % (
