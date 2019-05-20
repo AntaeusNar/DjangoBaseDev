@@ -25,6 +25,6 @@ class IndexTest(StaticLiveServerTestCase):
         response = self.client.get(self.live_server_url)
         self.assertEqual(response.status_code, 200)
 
-    def test_finish_functional_tests(self):
-        self.fail('Finish the Functional Test!')
+    # def test_finish_functional_tests(self):
+    #    self.fail('Finish the Functional Test!')
 
