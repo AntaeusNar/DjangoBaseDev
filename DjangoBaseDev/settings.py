@@ -38,7 +38,6 @@ INSTALLED_APPS = [
 
 
     # local created apps
-    'baseindex',
     'service',
 ]
 
