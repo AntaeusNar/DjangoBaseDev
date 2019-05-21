@@ -8,9 +8,9 @@ from service.views import dashboard
 class IndexViewTest(TestCase):
 
     def test_root_url_resolves_to_index_view(self):
-        found = resolve('/service/')
+        found = resolve('/')
         self.assertEqual(found.func, dashboard)
 
     def test_index_view_uses_index_template(self):
-        response = self.client.get('/service/')
+        response = self.client.get('/')
         self.assertTemplateUsed(response, 'service/dashboard.html')

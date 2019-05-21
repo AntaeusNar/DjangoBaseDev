@@ -17,9 +17,9 @@ class DashboardTest(StaticLiveServerTestCase):
         self.browser = webdriver.Firefox()
         staging_server = os.environ.get('STAGING_SERVER')
         if staging_server:
-            self.live_server_url = 'http://' + staging_server + '/service/'
+            self.live_server_url = 'http://' + staging_server
         else:
-            self.live_server_url = self.live_server_url + '/service/'
+            self.live_server_url = self.live_server_url
 
     def tearDown(self):
         self.browser.quit()
@@ -62,7 +62,6 @@ class DashboardTest(StaticLiveServerTestCase):
         self.fail('Finish Events Display')
         # There is an option to change how many events are shown
         # and filtering options based on names, dates, parts and addresses
-
 
     def test_finish_fail(self):
         self.fail('Finish Functional Test of Service')
