@@ -22,7 +22,7 @@
     <body>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
             <!-- Brand -->
-            <a class="navbar-brand" href="{% url 'index' %}">{% block brand %} Service & Ticketing {% endblock %}</a>
+            <a class="navbar-brand" href="{% url 'dashboard' %}">{% block brand %} Service & Ticketing {% endblock %}</a>
 
             <!-- Toggler/collapsibe Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -33,7 +33,7 @@
             <div class="collapse navbar-collapse flex-row-reverse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">{% block home %}Home{% endblock %}</a>
+                        <a class="nav-link" href="{% url 'dashboard' %}">{% block home %}Home{% endblock %}</a>
                     </li>
 
                     <!-- Dropdown -->
