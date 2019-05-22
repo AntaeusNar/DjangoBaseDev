@@ -8,3 +8,4 @@ omit =
     *wsgi/*,
     manage.py,
     *virtualenv/*
+    *venv/*
