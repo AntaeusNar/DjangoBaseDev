@@ -1,6 +1,7 @@
 from django.test import TestCase
-from django.urls import resolve
+from django.urls import resolve, reverse
 from service.views import dashboard, registration
+from django.contrib.auth.models import User
 
 # Create your tests here.
 
@@ -32,3 +33,11 @@ class RegistrationViewTest(TestCase):
     def test_registration_uses_register_template(self):
         response = self.client.get('/accounts/registration/')
         self.assertTemplateUsed(response, 'registration/register.html')
+
+    def test_can_save_a_POST_request(self):
+        self.client.post(reverse('registration'), data={'username': 'FishyTom',
+                                                        'password1': 'horsesaremadeofpoop',
+                                                        'password2': 'horsesaremadeofpoop'})
+        self.assertEqual(User.objects.count(), 1)
+        new_user = User.objects.first()
+        self.assertEqual(new_user.username, 'FishyTom')
