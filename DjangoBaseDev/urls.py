@@ -20,6 +20,7 @@ from service import urls as service_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(service_urls)),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include(service_urls)),
+    path('accounts/', include(service_urls)),
 ]

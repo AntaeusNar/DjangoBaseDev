@@ -17,4 +17,5 @@ from service import views
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
+    path('registration/', views.registration, name='registration')
 ]
