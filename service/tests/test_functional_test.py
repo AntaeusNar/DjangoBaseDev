@@ -46,15 +46,17 @@ class DashboardTest(StaticLiveServerTestCase):
         response = self.client.get(self.live_server_url)
         self.assertEqual(response.status_code, 200)
 
-    def test_login_selection_loads(self):
-        # she is greeted with a login screen
-        self.fail('Finish Login Functionality')
+    def test_login_option_loads(self):
+        # she is greeted with a login option
+        self.browser.get(self.live_server_url)
+        nav_bar = self.browser.find_element_by_id('collapsibleNavbar').get_attribute("innerHTML").strip()
+        self.assertInHTML('Login', nav_bar)
 
     def test_latest_events_displayed(self):
         # Edith logs in and sees a section for recent events
         self.browser.get(self.live_server_url)
-        header2_text = self.browser.find_element_by_tag_name('h2').text
-        self.assertIn('Recent Events', header2_text)
+        header4_text = self.browser.find_element_by_tag_name('h4').text
+        self.assertIn('Most Recently Closed', header4_text)
         # She sees that by default the last 10 events are listed here
         self.helper_wait_for_row_in_table('1:', 'id_events_table')
         self.helper_wait_for_row_in_table('10', 'id_events_table')
