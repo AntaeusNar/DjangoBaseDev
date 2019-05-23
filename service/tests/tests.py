@@ -14,3 +14,10 @@ class IndexViewTest(TestCase):
     def test_index_view_uses_index_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'service/dashboard.html')
+
+
+class LoginViewTest(TestCase):
+
+    def test_login_uses_login_template(self):
+        response = self.client.get('/accounts/login')
+        self.assertTemplateUsed(response, 'registration/login.html')
