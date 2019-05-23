@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import resolve
-from service.views import dashboard, register
+from service.views import dashboard, registration
 
 # Create your tests here.
 
@@ -19,16 +19,16 @@ class IndexViewTest(TestCase):
 class LoginViewTest(TestCase):
 
     def test_login_uses_login_template(self):
-        response = self.client.get('/accounts/login')
+        response = self.client.get('/accounts/login/')
         self.assertTemplateUsed(response, 'registration/login.html')
 
 
-class RegisterViewTest(TestCase):
+class RegistrationViewTest(TestCase):
 
-    def test_register_url_resolves_to_register_view(self):
-        found = resolve("/register")
-        self.assertEqual(found.func, register)
+    def test_registration_url_resolves_to_register_view(self):
+        found = resolve('/accounts/registration/')
+        self.assertEqual(found.func, registration)
 
-    def test_register_uses_register_template(self):
-        response = self.client.get('/accounts/register')
+    def test_registration_uses_register_template(self):
+        response = self.client.get('/accounts/registration/')
         self.assertTemplateUsed(response, 'registration/register.html')
