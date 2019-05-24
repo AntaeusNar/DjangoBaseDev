@@ -22,3 +22,7 @@ def registration(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
+def create_event(request):
+    return render(request, 'service/create_event.html')
