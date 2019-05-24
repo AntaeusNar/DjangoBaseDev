@@ -47,7 +47,7 @@ class DashboardTest(StaticLiveServerTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_login_option_loads(self):
-        # she is greeted with a login option
+        # there is a login option on the navbar
         self.browser.get(self.live_server_url)
         nav_bar = self.browser.find_element_by_id('collapsibleNavbar').get_attribute("innerHTML").strip()
         self.assertInHTML('Login', nav_bar)
