@@ -34,14 +34,6 @@ class RegistrationViewTest(TestCase):
         response = self.client.get(reverse('registration'))
         self.assertTemplateUsed(response, 'registration/register.html')
 
-    def test_can_save_a_POST_request(self):
-        self.client.post(reverse('registration'), data={'username': 'FishyTom',
-                                                        'password1': 'horsesaremadeofpoop',
-                                                        'password2': 'horsesaremadeofpoop'})
-        self.assertEqual(User.objects.count(), 1)
-        new_user = User.objects.first()
-        self.assertEqual(new_user.username, 'FishyTom')
-
     def test_registration_POST_can_build_a_full_user(self):
         user1 = {'username': 'UglyPaul@test.com',
                  'password1': 'yourmomisaboat',
