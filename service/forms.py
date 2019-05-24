@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from service.models import Event
 
 
 class UserCreationForm(UserCreationForm):
@@ -20,3 +21,10 @@ class UserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class EventForm(forms.Form):
+
+    class Meta:
+        model = Event
+        fields = ('action', 'status', 'container')
