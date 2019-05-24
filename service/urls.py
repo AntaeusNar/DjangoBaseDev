@@ -17,5 +17,6 @@ from service import views
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
-    path('registration/', views.registration, name='registration')
+    path('registration/', views.registration, name='registration'),
+    path('create_event/', views.create_event, name='create_event')
 ]
