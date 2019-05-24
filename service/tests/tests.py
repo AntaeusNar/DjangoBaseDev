@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
-from service.views import dashboard, registration
+from service.views import dashboard, registration, create_event
 from django.contrib.auth.models import User
 
 # Create your tests here.
@@ -22,6 +22,20 @@ class LoginViewTest(TestCase):
     def test_login_uses_login_template(self):
         response = self.client.get(reverse('login'))
         self.assertTemplateUsed(response, 'registration/login.html')
+
+
+class CreateEventsViewTest(TestCase):
+
+    def test_create_event_url_resolves_to_create_event_view(self):
+        found = resolve(reverse('create_event'))
+        self.assertEqual(found.func, create_event)
+
+    def test_create_event_uses_create_event_template(self):
+        response = self.client.get(reverse('create_event'))
+        self.assertTemplateUsed(response, 'service/create_event.html')
+
+    def test_create_event_POST_can_create_event(self):
+        self.fail('Finish Test')
 
 
 class RegistrationViewTest(TestCase):
