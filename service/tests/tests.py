@@ -20,18 +20,18 @@ class IndexViewTest(TestCase):
 class LoginViewTest(TestCase):
 
     def test_login_uses_login_template(self):
-        response = self.client.get('/accounts/login/')
+        response = self.client.get(reverse('login'))
         self.assertTemplateUsed(response, 'registration/login.html')
 
 
 class RegistrationViewTest(TestCase):
 
     def test_registration_url_resolves_to_register_view(self):
-        found = resolve('/accounts/registration/')
+        found = resolve(reverse('registration'))
         self.assertEqual(found.func, registration)
 
     def test_registration_uses_register_template(self):
-        response = self.client.get('/accounts/registration/')
+        response = self.client.get(reverse('registration'))
         self.assertTemplateUsed(response, 'registration/register.html')
 
     def test_can_save_a_POST_request(self):
