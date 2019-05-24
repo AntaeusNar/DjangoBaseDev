@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 from service.views import dashboard, registration, create_event
 from django.contrib.auth.models import User
+from service.models import Event
 
 # Create your tests here.
 
@@ -35,7 +36,24 @@ class CreateEventsViewTest(TestCase):
         self.assertTemplateUsed(response, 'service/create_event.html')
 
     def test_create_event_POST_can_create_event(self):
-        self.fail('Finish Test')
+        address = {'house_number': '3509',
+                   'road': 'Pelican Brief Ln',
+                   'postcode': '89084',
+                   'city': 'North Las Vegas',
+                   'state': 'NV',
+                   'country': 'USA',
+                   }
+        part = {'name': 'Fishing Pole'}
+        container = {'name': 'First Location',
+                     'part': part,
+                     'address': address,
+                     }
+        event = {'action': 'Add',
+                 'status': 'Active',
+                 'container': container,
+                 }
+        self.client.post(reverse('create_event'), data=event)
+        self.assertEqual(Event.objects.count(), 1)
 
 
 class RegistrationViewTest(TestCase):
