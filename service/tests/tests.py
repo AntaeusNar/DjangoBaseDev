@@ -41,3 +41,18 @@ class RegistrationViewTest(TestCase):
         self.assertEqual(User.objects.count(), 1)
         new_user = User.objects.first()
         self.assertEqual(new_user.username, 'FishyTom')
+
+    def test_registration_POST_can_build_a_full_user(self):
+        user1 = {'username': 'UglyPaul@test.com',
+                 'password1': 'yourmomisaboat',
+                 'password2': 'yourmomisaboat',
+                 'email': 'Ugly.Paul@test.com',
+                 'first_name': 'Paul',
+                 'last_name': 'Ugly'}
+        self.client.post(reverse('registration'), data=user1)
+        self.assertEqual(User.objects.count(), 1)
+        saved_user = User.objects.first()
+        self.assertEqual(saved_user.username, 'UglyPaul@test.com')
+        self.assertEqual(saved_user.email, 'Ugly.Paul@test.com')
+        self.assertEqual(saved_user.first_name, 'Paul')
+        self.assertEqual(saved_user.last_name, 'Ugly')
