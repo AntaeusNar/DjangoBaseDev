@@ -5,5 +5,10 @@ This is designed to be a base site with all the peices needed to allow for the t
 
 Ideally the apps will each inhabit their own branch and the 'master' branch will just have the base project.
 
-## Virtual Environment
+## Dependencies
+### Install Python 3.7.3
+[Python](https://www.python.org/downloads/release/python-373/)
+###settings_secret.py
+Copy settings_secret.py into folder with settings.py
+### Virtual Environment
 [Setup Instructions](https://www.jetbrains.com/help/pycharm-edu/creating-virtual-environment.html)
