@@ -201,6 +201,8 @@ class PartModelTest(TestCase):
 
         saved_parts = Part.objects.all()
         self.assertEqual(saved_parts.count(), 3)
+        saved_parent_part = saved_parts[2]
+        self.assertEqual(saved_parent_part.subpart, first_part)
 
 
 class ContainerModelTest(TestCase):
