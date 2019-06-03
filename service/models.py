@@ -102,7 +102,7 @@ class Container(models.Model):
     name = models.CharField(max_length=64)
     part = models.ManyToManyField('Part', through='PartQuantity', related_name='containers')
     address = models.ManyToManyField('Address')
-    subcontainer = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    subcontainer = models.ManyToManyField('Container')
 
     def __str__(self):
         return self.name
