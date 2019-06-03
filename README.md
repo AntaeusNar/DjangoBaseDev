@@ -8,6 +8,9 @@ Ideally the apps will each inhabit their own branch and the 'master' branch will
 ## Dependencies
 ### Install Python 3.7.3
 [Python](https://www.python.org/downloads/release/python-373/)
+###Install GeckoDriver
+[GeckoDriver](https://github.com/mozilla/geckodriver/releases)
+[Adding to PATH](https://www.softwaretestinghelp.com/geckodriver-selenium-tutorial/)
 ###settings_secret.py
 Copy settings_secret.py into folder with settings.py
 ### Virtual Environment
