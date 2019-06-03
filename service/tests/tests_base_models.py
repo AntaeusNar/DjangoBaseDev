@@ -208,7 +208,6 @@ class PartModelTest(TestCase):
 class ContainerModelTest(TestCase):
 
     def test_creating_and_retrieving_containers_with_Subcontainers(self):
-        # Todo: Allow for multiple subcontainers
         first_container = Container()
         first_container.name = 'Tardis'
         first_container.save()
