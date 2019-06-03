@@ -208,6 +208,7 @@ class PartModelTest(TestCase):
 class ContainerModelTest(TestCase):
 
     def test_creating_and_retrieving_containers(self):
+        # Todo: Allow for multiple subcontainers
         first_container = Container()
         first_container.name = 'Tardis'
         first_container.save()
@@ -228,6 +229,15 @@ class ContainerModelTest(TestCase):
         self.assertEqual(second_saved_container.subcontainer, first_container)
         self.assertEqual(second_saved_container.subcontainer, first_saved_container)
         self.assertEqual(second_saved_container.name, str(second_saved_container))
+
+        third_container = Container()
+        third_container.name = "UK"
+        third_container.save()
+        third_container.subcontainer.add(first_container)
+        third_container.subcontainer.add(second_container)
+
+        self.assertEqual(third_container.subcontainer.all()[0], first_container)
+        self.assertEqual(third_container.subcontainer.all()[1], second_container)
 
     def test_creating_containers_with_addresses(self):
 
