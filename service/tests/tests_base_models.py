@@ -167,6 +167,8 @@ class AddressModelTest(TestCase):
 
 class PartModelTest(TestCase):
 
+    # Todo: add the ability to nest parts and/or create part kits for a tree like structure
+
     def test_creating_and_retrieving_parts(self):
         first_part = Part()
         first_part.name = "Flux Capacitor"
