@@ -194,8 +194,8 @@ class PartModelTest(TestCase):
 
         parent_part = Part()
         parent_part.name = "Von Duprin Panic Bar"
-        parent_part.subpart = first_part
-        parent_part.subpart = second_part
+        parent_part.subpart.add(first_part)
+        parent_part.subpart.add(second_part)
 
         parent_part.save()
 
