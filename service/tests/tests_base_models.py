@@ -167,8 +167,6 @@ class AddressModelTest(TestCase):
 
 class PartModelTest(TestCase):
 
-    # Todo: add the ability to nest parts and/or create part kits for a tree like structure
-
     def test_creating_and_retrieving_parts(self):
         first_part = Part()
         first_part.name = "Flux Capacitor"
@@ -183,6 +181,7 @@ class PartModelTest(TestCase):
         self.assertEqual(first_saved_part.name, str(first_saved_part))
 
     def test_add_parts_to_parts(self):
+        # Todo: add the ability to nest parts and/or create part kits for a tree like structure
         first_part = Part()
         first_part.name = "Command Access Motor"
 
@@ -195,8 +194,8 @@ class PartModelTest(TestCase):
 
         parent_part = Part()
         parent_part.name = "Von Duprin Panic Bar"
-        parent_part.child = first_part
-        parent_part.child = second_part
+        parent_part.subpart = first_part
+        parent_part.subpart = second_part
 
         parent_part.save()
 
