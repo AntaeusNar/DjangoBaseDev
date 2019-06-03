@@ -181,7 +181,7 @@ class PartModelTest(TestCase):
         self.assertEqual(first_saved_part.name, str(first_saved_part))
 
     def test_add_parts_to_parts(self):
-        # Todo: add the ability to nest parts and/or create part kits for a tree like structure
+        # Todo: need to allow for quanties
         first_part = Part()
         first_part.name = "Command Access Motor"
 
@@ -194,15 +194,15 @@ class PartModelTest(TestCase):
 
         parent_part = Part()
         parent_part.name = "Von Duprin Panic Bar"
+        parent_part.save()
         parent_part.subpart.add(first_part)
         parent_part.subpart.add(second_part)
-
-        parent_part.save()
 
         saved_parts = Part.objects.all()
         self.assertEqual(saved_parts.count(), 3)
         saved_parent_part = saved_parts[2]
-        self.assertEqual(saved_parent_part.subpart, first_part)
+        self.assertEqual(saved_parent_part.subpart.all()[0], first_part)
+        self.assertEqual(saved_parent_part.subpart.all()[1], second_part)
 
 
 class ContainerModelTest(TestCase):
