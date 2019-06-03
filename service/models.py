@@ -111,6 +111,7 @@ class Container(models.Model):
 class Part(models.Model):
 
     name = models.CharField(max_length=16)
+    subpart = models.ManyToManyField('Part')
 
     def __str__(self):
         return self.name
