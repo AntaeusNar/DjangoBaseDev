@@ -36,8 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
     # local created apps
-    'baseindex',
+    'service',
 ]
 
 MIDDLEWARE = [

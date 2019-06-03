@@ -1,0 +1,25 @@
+{% extends 'service/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col">
+        <h3 class="text-center">Central Dashboard</h3>
+        <p class="text-center">Clear Views, Great Results</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5 border rounded">
+        <h4 class="text-center">Most Recently Closed</h4>
+        <div class="row">
+            <table id="id_events_table" class="table">
+                {% for event in events.all %}
+                    <tr><td>{{ forloop.counter }}: {{ event.description }}</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="col-md-5 offset-md-2 border rounded">
+        <h4 class="text-center">Open Items</h4>
+    </div>
+</div>
+{% endblock %}
