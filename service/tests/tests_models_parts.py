@@ -1,7 +1,25 @@
 from django.test import TestCase
-from service.models import MasterPart, Part, Manufacturer
+from service.models import MasterPart, Part, Manufacturer, Supplier, SupplierPart
 
 # These Tests are for Parts and Part related items
+
+
+class SupplierModelTest(TestCase):
+
+    def create_supplier(self, name='test supplier'):
+        return Supplier.objects.create(name=name)
+
+    def test_creating_and_retrieving_Suppliers(self):
+        supplier = self.create_supplier(name="Bob's Supplies")
+        self.assertTrue(isinstance(supplier, Supplier))
+        supplier.save()
+
+        saved_suppliers = Supplier.objects.all()
+        self.assertEqual(saved_suppliers.count(), 1)
+
+        first_saved_supplier = saved_suppliers[0]
+        self.assertEqual(first_saved_supplier.name, "Bob's Supplies")
+        self.assertEqual(first_saved_supplier.name, str(first_saved_supplier))
 
 
 class ManufacturerModelTest(TestCase):
