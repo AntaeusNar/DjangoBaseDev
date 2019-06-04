@@ -1,5 +1,6 @@
 from django.test import TestCase
 from service.models import Event, Part, Container, Address
+from service.tests.tests_models_parts import ManufacturerModelTest, MasterPartModelTest, SupplierModelTest, PartModelTest
 import datetime
 
 # Create your tests here.
@@ -222,12 +223,10 @@ class ContainerModelTest(TestCase):
 
     def test_adding_parts_to_containers(self):
 
-        first_part = Part()
-        first_part.name = "Trebuchet"
+        PMT = PartModelTest
+        first_part = PartModelTest.create_part(PMT, name="Trebuchet")
+        second_part = PartModelTest.create_part(PMT, name="Horcrux")
         first_part.save()
-
-        second_part = Part()
-        second_part.name = "Horcrux"
         second_part.save()
 
         saved_parts = Part.objects.all()
@@ -240,17 +239,9 @@ class ContainerModelTest(TestCase):
         saved_containers = Container.objects.all()
         self.assertEqual(saved_containers.count(), 1)
 
-        group_of_parts = PartQuantity.objects.create(part=first_part, container=first_container, amount=7)
-        group_of_parts_2 = PartQuantity.objects.create(part=second_part, container=first_container, amount=24)
-
         first_saved_container = saved_containers[0]
-        fsc_part_quantities = first_saved_container.part_quantity.all()
-        self.assertEqual(fsc_part_quantities.count(), 2)
-
-        first_fsc_part_quantity = fsc_part_quantities[0]
-        self.assertEqual(first_fsc_part_quantity.part.name, 'Trebuchet')
-        self.assertEqual(first_fsc_part_quantity.amount, 7)
-
-        second_fsc_part_quantity = fsc_part_quantities[1]
-        self.assertEqual(second_fsc_part_quantity.part.name, 'Horcrux')
-        self.assertEqual(second_fsc_part_quantity.amount, 24)
+        first_saved_container.part.add(first_part)
+        first_saved_container.part.add(second_part)
+        self.assertEqual(first_saved_container.part.count(), 2)
+        self.assertEqual(first_saved_container.part.all()[0], first_part)
+        self.assertEqual(first_saved_container.part.all()[1], second_part)
