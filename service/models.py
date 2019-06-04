@@ -150,3 +150,11 @@ class Event(models.Model):
     rec_date = models.DateTimeField(auto_now_add=True)
     last_change_date = models.DateTimeField(auto_now=True)
     events = models.ManyToManyField('self')
+
+
+class Manufacturer(models.Model):
+    pass
+
+
+class MasterPart(models.Model):
+    pass
