@@ -1,5 +1,5 @@
 from django.test import TestCase
-from service.models import Event, Part, Container, PartQuantity, Address
+from service.models import Event, Part, Container, Address
 import datetime
 
 # Create your tests here.
