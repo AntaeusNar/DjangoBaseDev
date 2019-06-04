@@ -61,6 +61,21 @@ class MasterPartModelTest(TestCase):
         self.assertEqual(first_saved_mp.man_part_num, 'test manufacturer part number')
         self.assertEqual(first_saved_mp.name, str(first_saved_mp))
 
+    def test_add_supplier_to_master_parts(self):
+        first_part = self.create_master_part()
+        SMT = SupplierModelTest
+        first_supplier = SupplierModelTest.create_supplier(SMT, name="Bob's Supplies")
+        first_part.save()
+        first_supplier.save()
+        master_part_supplier = SupplierPart.objects.create(master_part=first_part, supplier=first_supplier, supplier_part_number="12345")
+
+        saved_master_parts = MasterPart.objects.all()
+        self.assertEqual(saved_master_parts.count(), 1)
+
+        first_save_master_part = saved_master_parts[0]
+        self.assertEqual(first_save_master_part.supplier.all()[0], first_supplier)
+        self.assertEqual(first_save_master_part.supplier_part_number.all()[0].supplier_part_number, "12345")
+
 
 class PartModelTest(TestCase):
 
