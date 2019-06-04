@@ -1,6 +1,5 @@
 from django.test import TestCase
 from service.models import MasterPart, Part, Manufacturer, Supplier, SupplierPart
-
 # These Tests are for Parts and Part related items
 
 

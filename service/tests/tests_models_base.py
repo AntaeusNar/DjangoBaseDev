@@ -1,6 +1,6 @@
 from django.test import TestCase
 from service.models import Event, Part, Container, Address
-from service.tests.tests_models_parts import ManufacturerModelTest, MasterPartModelTest, SupplierModelTest, PartModelTest
+from service.tests.tests_models_parts import PartModelTest
 import datetime
 
 # Create your tests here.
