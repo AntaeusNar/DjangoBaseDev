@@ -107,7 +107,7 @@ class Container(models.Model):
     def __str__(self):
         return self.name
 
-
+# Todo: build out suppliers with a many to many that includes supplier part number
 class MasterPart(models.Model):
     name = models.CharField(max_length=16)
     manufacturer = models.ForeignKey('Manufacturer', on_delete=models.CASCADE)
@@ -116,7 +116,7 @@ class MasterPart(models.Model):
     def __str__(self):
         return self.name
 
-
+# Todo: how do we want to id unique parts? without requiring a serial number?
 class Part(models.Model):
 
     master_part = models.ForeignKey('MasterPart', on_delete=models.CASCADE)
@@ -126,7 +126,7 @@ class Part(models.Model):
     def __str__(self):
         return self.name
 
-
+# Todo: remove this class and system to remove duplicate parts
 class PartQuantity(models.Model):
     amount = models.IntegerField()
     part = models.ForeignKey('Part', related_name='part_quantity', on_delete=models.SET_NULL, null=True, blank=True)
@@ -161,7 +161,7 @@ class Event(models.Model):
     last_change_date = models.DateTimeField(auto_now=True)
     events = models.ManyToManyField('self')
 
-
+# Todo: add addresses, contact info etc
 class Manufacturer(models.Model):
     name = models.CharField(max_length=16)
 
