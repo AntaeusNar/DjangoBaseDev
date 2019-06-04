@@ -100,18 +100,19 @@ class Container(models.Model):
     # a location, truck, door, system, group, warehouse etc for relating one set of parts to another
     # or sub-locations nesting forever
     name = models.CharField(max_length=64)
-    part = models.ManyToManyField('Part', through='PartQuantity', related_name='containers')
+    part = models.ManyToManyField('Part')
     address = models.ManyToManyField('Address')
     subcontainer = models.ManyToManyField('Container')
 
     def __str__(self):
         return self.name
 
-# Todo: build out suppliers with a many to many that includes supplier part number
+
 class MasterPart(models.Model):
     name = models.CharField(max_length=16)
     manufacturer = models.ForeignKey('Manufacturer', on_delete=models.CASCADE)
     man_part_num = models.CharField(max_length=32, null=True)
+    supplier = models.ManyToManyField('Supplier', through='SupplierPart', related_name='master_part')
 
     def __str__(self):
         return self.name
@@ -126,11 +127,11 @@ class Part(models.Model):
     def __str__(self):
         return self.name
 
-# Todo: remove this class and system to remove duplicate parts
-class PartQuantity(models.Model):
-    amount = models.IntegerField()
-    part = models.ForeignKey('Part', related_name='part_quantity', on_delete=models.SET_NULL, null=True, blank=True)
-    container = models.ForeignKey('Container', related_name='part_quantity', on_delete=models.SET_NULL, null=True)
+
+class SupplierPart(models.Model):
+    supplier_part_number = models.CharField(max_length=32)
+    master_part = models.ForeignKey('MasterPart', related_name='supplier_part_number', on_delete=models.SET_NULL, null=True, blank=True)
+    supplier = models.ForeignKey('Supplier', related_name='supplier_part_Number', on_delete=models.SET_NULL, null=True)
 
 
 class Event(models.Model):
@@ -168,6 +169,12 @@ class Manufacturer(models.Model):
     def __str__(self):
         return self.name
 
+
+class Supplier(models.Model):
+    name = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.name
 
 
 
