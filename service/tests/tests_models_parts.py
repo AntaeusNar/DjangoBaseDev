@@ -4,10 +4,30 @@ from service.models import MasterPart, Part, Manufacturer
 # These Tests are for Parts and Part related items
 
 
+class ManufacturerModelTest(TestCase):
+
+    def create_manufacturer(self, name='test name'):
+        return Manufacturer.objects.create(name=name)
+
+    def test_creating_and_retrieving_Manufacturers(self):
+        manufacturer = self.create_manufacturer(name="John's Woodshop")
+        self.assertTrue(isinstance(manufacturer, Manufacturer))
+        manufacturer.save()
+
+        saved_manufacturers = Manufacturer.objects.all()
+        self.assertEqual(saved_manufacturers.count(), 1)
+
+        first_saved_manufacturer = saved_manufacturers[0]
+        self.assertEqual(first_saved_manufacturer.name, "John's Woodshop")
+        self.assertEqual(first_saved_manufacturer.name, str(first_saved_manufacturer))
+
+
 class MasterPartModelTest(TestCase):
 
-    def create_master_part(self, name='test name'):
-        return MasterPart.objects.create(name=name)
+    def create_master_part(self, name='test name', man_name='test manufacturer',
+                           man_part_num="test manufacturer part number"):
+        man = Manufacturer.objects.create(name=man_name)
+        return MasterPart.objects.create(name=name, manufacturer=man, man_part_num=man_part_num)
 
     def test_creating_and_retrieving_master_part(self):
         mp = self.create_master_part()
@@ -19,12 +39,17 @@ class MasterPartModelTest(TestCase):
 
         first_saved_mp = saved_mps[0]
         self.assertEqual(first_saved_mp.name, 'test name')
+        self.assertEqual(first_saved_mp.manufacturer.name, 'test manufacturer')
+        self.assertEqual(first_saved_mp.man_part_num, 'test manufacturer part number')
+        self.assertEqual(first_saved_mp.name, str(first_saved_mp))
 
 
 class PartModelTest(TestCase):
 
-    def create_part(self, name='test name'):
-        return Part.objects.create(name=name)
+    def create_part(self, name='test name', mp_name='master test name', man_name='test manufacturer'):
+        man = Manufacturer.objects.create(name=man_name)
+        mp = MasterPart.objects.create(name=mp_name, manufacturer=man)
+        return Part.objects.create(name=name, master_part=mp)
 
     def test_creating_and_retrieving_parts(self):
         first_part = self.create_part(name='Flux Capacitor')
@@ -55,16 +80,3 @@ class PartModelTest(TestCase):
         self.assertEqual(saved_parent_part.subpart.all()[0], first_part)
         self.assertEqual(saved_parent_part.subpart.all()[1], second_part)
 
-
-class ManufacturerModelTest(TestCase):
-
-    def test_creating_and_retrieving_Manufacturers(self):
-        manufacturer = Manufacturer()
-        manufacturer.name = "John's Woodshop"
-        manufacturer.save()
-
-        saved_manufacturers = Manufacturer.objects.all()
-        self.assertEqual(saved_manufacturers.count(), 1)
-
-        first_saved_manufacturer = saved_manufacturers[0]
-        self.assertEqual(first_saved_manufacturer.name, "John's Woodshop")

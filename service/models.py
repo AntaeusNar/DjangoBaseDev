@@ -108,8 +108,18 @@ class Container(models.Model):
         return self.name
 
 
+class MasterPart(models.Model):
+    name = models.CharField(max_length=16)
+    manufacturer = models.ForeignKey('Manufacturer', on_delete=models.CASCADE)
+    man_part_num = models.CharField(max_length=32, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Part(models.Model):
 
+    master_part = models.ForeignKey('MasterPart', on_delete=models.CASCADE)
     name = models.CharField(max_length=16)
     subpart = models.ManyToManyField('Part')
 
@@ -153,8 +163,11 @@ class Event(models.Model):
 
 
 class Manufacturer(models.Model):
-    pass
+    name = models.CharField(max_length=16)
+
+    def __str__(self):
+        return self.name
 
 
-class MasterPart(models.Model):
-    pass
+
+
