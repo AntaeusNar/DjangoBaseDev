@@ -166,6 +166,7 @@ class Event(models.Model):
 # Todo: add addresses, contact info etc
 class Manufacturer(models.Model):
     name = models.CharField(max_length=16)
+    address = models.ManyToManyField('Address')
 
     def __str__(self):
         return self.name
@@ -173,6 +174,7 @@ class Manufacturer(models.Model):
 
 class Supplier(models.Model):
     name = models.CharField(max_length=32)
+    address = models.ManyToManyField('Address')
 
     def __str__(self):
         return self.name
