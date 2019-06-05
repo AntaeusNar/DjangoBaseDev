@@ -5,7 +5,7 @@ import datetime
 
 # Create your tests here.
 
-
+# Todo: expand a Catagory or tag model to set things as client, accress control, you know grupings
 class EventModelTest(TestCase):
     # Current rendition of an event:
     # A description of [an action] performed on [Group of Parts at a location/place] at a [time]
