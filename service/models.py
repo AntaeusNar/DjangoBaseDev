@@ -101,6 +101,7 @@ class Container(models.Model):
     # or sub-locations nesting forever
     name = models.CharField(max_length=64)
     part = models.ManyToManyField('Part')
+    # Todo: Adjust so that each container can have only one address, but make sure we can have multible containers at one address
     address = models.ManyToManyField('Address')
     subcontainer = models.ManyToManyField('Container')
 
