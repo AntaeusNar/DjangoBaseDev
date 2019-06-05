@@ -1,5 +1,6 @@
 from django.test import TestCase
-from service.models import MasterPart, Part, Manufacturer, Supplier, SupplierPart
+from service.models import MasterPart, Part, Manufacturer, Supplier, SupplierPart, Address
+from service.tests.tests_models_addresses import AddressModelTest
 # These Tests are for Parts and Part related items
 
 
@@ -20,6 +21,30 @@ class SupplierModelTest(TestCase):
         self.assertEqual(first_saved_supplier.name, "Bob's Supplies")
         self.assertEqual(first_saved_supplier.name, str(first_saved_supplier))
 
+    def test_adding_an_address_to_supplier(self):
+        kwargs = {
+            "house_number": "3509",
+            "road": "pelican brief ln",
+            "postcode": "89084",
+            "city": "north las vegas",
+            "state": "nevada"}
+        amt = AddressModelTest
+        alpha_address = AddressModelTest.create_address(amt, **kwargs)
+        self.assertTrue(isinstance(alpha_address, Address))
+        alpha_address.save()
+
+        supplier = self.create_supplier(name="Jed's Lab")
+        self.assertTrue(isinstance(supplier, Supplier))
+        supplier.save()
+
+        supplier.address.add(alpha_address)
+
+        saved_suppliers = Supplier.objects.all()
+        self.assertEqual(saved_suppliers.count(), 1)
+
+        first_saved_supplier = saved_suppliers[0]
+        self.assertEqual(first_saved_supplier.address.all()[0].city, "North Las Vegas")
+
 
 class ManufacturerModelTest(TestCase):
 
@@ -37,6 +62,30 @@ class ManufacturerModelTest(TestCase):
         first_saved_manufacturer = saved_manufacturers[0]
         self.assertEqual(first_saved_manufacturer.name, "John's Woodshop")
         self.assertEqual(first_saved_manufacturer.name, str(first_saved_manufacturer))
+
+    def test_adding_address_to_manufacturer(self):
+        kwargs = {
+            "house_number": "3509",
+            "road": "pelican brief ln",
+            "postcode": "89084",
+            "city": "north las vegas",
+            "state": "nevada"}
+        amt = AddressModelTest
+        alpha_address = AddressModelTest.create_address(amt, **kwargs)
+        self.assertTrue(isinstance(alpha_address, Address))
+        alpha_address.save()
+
+        manufacturer = self.create_manufacturer(name="Jed's Lab")
+        self.assertTrue(isinstance(manufacturer, Manufacturer))
+        manufacturer.save()
+
+        manufacturer.address.add(alpha_address)
+
+        saved_manufacturers = Manufacturer.objects.all()
+        self.assertEqual(saved_manufacturers.count(), 1)
+
+        first_saved_manufacturer = saved_manufacturers[0]
+        self.assertEqual(first_saved_manufacturer.address.all()[0].city, "North Las Vegas")
 
 
 class MasterPartModelTest(TestCase):
