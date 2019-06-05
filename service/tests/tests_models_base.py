@@ -40,6 +40,7 @@ class EventModelTest(TestCase):
         self.assertEqual(first_saved_event.status, 'Active')
         self.assertEqual(first_saved_event.container, apartments_parts_group)
         self.assertEqual(first_saved_event.event_date, yesterday)
+        # Todo: Somehow sometimes this is off by one day
         self.assertEqual(first_saved_event.rec_date.strftime('%Y-%m-%d'), this_today)
 
 
