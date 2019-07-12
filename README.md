@@ -9,24 +9,24 @@ Ideally the apps will each inhabit their own branch and the 'master' branch will
 This assumes using [Pycharm](https://www.jetbrains.com/pycharm/download/) as the IDE
 ### Install Python 3.7.3
 [Python](https://www.python.org/downloads/release/python-373/)
-###Install GeckoDriver
+### Install GeckoDriver
 [GeckoDriver](https://github.com/mozilla/geckodriver/releases)
 [Adding to PATH](https://www.softwaretestinghelp.com/geckodriver-selenium-tutorial/)
-###settings_secret.py
+### settings_secret.py
 Copy settings_secret.py into folder with settings.py
 ### Virtual Environment
 [Setup Instructions](https://www.jetbrains.com/help/pycharm-edu/creating-virtual-environment.html)
-###Requirements
+### Requirements
 Run the following command in the terminal with the virtual environment activated.
 
 `pip install -r requirements.txt`
 
-###Django Setup
+### Django Setup
 In order for the tests to run Django needs to have the migrations for the database prepared
 
 (virtual environment)> `python manage.py makemigrations`
 
-###PyCharm Run Configurations
+### PyCharm Run Configurations
 This section is for setting up run configurations for the IDE
 
 #### Testing w/pytest & Coverage
