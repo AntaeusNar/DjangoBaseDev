@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from service.models import Event, Address, Container, Part, PartQuantity
+from service.models import Event, Address, Container, Part
 
 
 class UserCreationForm(UserCreationForm):
